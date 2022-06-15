@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+
 import './App.css';
+import ItemList from './components/ItemList';
+import Form from './components/Form';
+import MenuBar from './MenuBar';
+import { useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+  const [inputItem, setInputItem] = useState("");
+  const [items, setItem] = useState([]);
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  }
+
+
+  return (
+    <div>
+      <div className="container">
+        <MenuBar setSearch={setSearch} items={items} search={search} handleSearch={handleSearch} />
+      </div>
+      <div id='main-container'>
+        <div className="container-1">
+          <Form items={items} setInputItem={setInputItem} setItem={setItem} inputItem={inputItem} />
+        </div>
+        <ItemList setItem={setItem} items={items} search={search} />
+      </div>
+    </div>
+  )
+};
+
+export default App
